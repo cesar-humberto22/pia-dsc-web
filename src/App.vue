@@ -1,11 +1,56 @@
 <template>
-	<main class="app">
-		<router-view></router-view>
+	<Loading :enable="storeSession.isLoading" :key="(new Date()).getTime()" />
+	<main v-if="!storeSession.isLoading" class="app">
+		<template v-if="storeSession.isLogin">
+			<LayoutsDesktop v-if="storePlatForm.platform === PLATFORMDESKTOP">
+				<router-view></router-view>
+			</LayoutsDesktop>
+			<LayoutsMobile v-else-if="storePlatForm.platform === PLATFORMMOBILE">
+				<router-view></router-view>
+			</LayoutsMobile>
+		</template>
+		<router-view v-else></router-view>
 	</main>
 </template>
 
-<style scoped>
-	.app {
-		@apply p-5 w-full md:w-6/12 lg:w-5/12 md:mx-auto xl:w-4/12
+<script>
+import Loading from '@/components/Loading.vue';
+import LayoutsDesktop from '@/components/layouts/Desktop.vue';
+import LayoutsMobile from '@/components/layouts/Mobile.vue';
+
+import {usePlatForm, PLATFORMDESKTOP, PLATFORMMOBILE} from '@/stores/platform';
+import {useSession} from '@/stores/session';
+
+import 'animate.css';
+
+export default {
+	name: "app",
+	components: {
+		Loading,
+		LayoutsDesktop,
+		LayoutsMobile
+	},
+	data: () => ({
+		PLATFORMDESKTOP, PLATFORMMOBILE
+	}),
+	setup(){
+		const platForm = usePlatForm()
+		const session = useSession()
+		platForm.platformDetect()
+		return {
+			storeSession: session,
+			storePlatForm: platForm
+		}
+	},
+	async mounted(){
+		await this.storeSession.getSession()
+
+		if(!this.storeSession.isLogin && !this.storeSession.isLoading && this.$route.fullPath !== "/login"){
+            this.$router.push("/login")
+		}
+
+		//console.log({isLoading: this.session.isLoading})
+		//this.isLoading = this.session.isLoading
 	}
-</style>
+}
+</script>

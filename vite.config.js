@@ -1,16 +1,20 @@
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { resolve } from 'path'
+import svgLoader from 'vite-svg-loader'
 
-// https://vitejs.dev/config/
+import {defineConfig} from 'vite'
+import {resolve} from 'path'
+
 export default defineConfig({
-  plugins: [vue()],
-  define: {
-  	'process.env': {}
-  },
-  resolve: {
-  	alias: {
-  		'@': resolve(__dirname, 'src')
-  	}
-  }
+    plugins: [vue(), svgLoader()],
+    define: {
+        'process.env': {}
+    },
+    resolve: {
+        alias: {
+            '@': resolve(__dirname, 'src')
+        }
+    },
+    server: {
+        origin: 'http://192.168.0.187:8080',
+    }
 })
