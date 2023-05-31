@@ -1,4 +1,4 @@
-export const URL_API = "http://localhost:3000/api/v1";
+export const URL_API = process.env.VITE_URL_API;
 
 export const apiFetch = (url, init) => new Promise((resolver) => {
     let rnt = {error: undefined, response: undefined, status: undefined}
