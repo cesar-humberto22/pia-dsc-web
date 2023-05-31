@@ -8,7 +8,8 @@ export const apiFetch = (url, init) => new Promise((resolver) => {
             "Accept": "application/json",
             "Content-Type": "application/json",
         },
-        credentials: 'include'
+        credentials: 'include',
+        mode: "no-cors"
     })
     .then(async (response) => {
         const responseJson = await response.json();
