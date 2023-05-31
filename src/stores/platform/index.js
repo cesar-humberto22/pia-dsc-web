@@ -15,7 +15,7 @@ export const usePlatForm = defineStore('platform', {
 	},
 	actions: {
 		platformDetect() {
-			const platform = "" /* window.navigator?.userAgentData?.platform || window.navigator.platform*/,
+			const platform = window.navigator?.userAgentData?.platform || window.navigator.platform,
 				windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
 			let aux_platform;
 			if (windowsPlatforms.indexOf(platform) !== -1) {
