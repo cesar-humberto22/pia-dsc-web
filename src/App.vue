@@ -11,6 +11,7 @@
 		</template>
 		<router-view v-else></router-view>
 	</main>
+	<portal-target name="body"></portal-target>
 </template>
 
 <script>

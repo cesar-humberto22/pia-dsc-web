@@ -33,22 +33,18 @@
                 <div class="w-11/12 text-left truncate">Cerrar sesión</div>
             </button>
         </div>
-        <div @click="handleClickContent" ref="app-content" class="w-full transition-all border-l border-gray-200 h-full flex flex-col flex-shrink-0 ">
+        <div @click="handleClickContent" ref="app-content" class="w-full relative transition-all border-l border-gray-200 h-full flex flex-col flex-shrink-0 ">
             <div class="w-full flex h-16">
                 <div class="flex-shrink-0 w-16 h-full">
                     <button ref="button-bars" @click="toggleMenu" class="w-full h-full text-2xl border-r border-gray-200">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
-                <div class="px-4 flex-shrink-0">
+                <div style="width: calc(100% - 4rem);" class="flex justify-end items-center px-4 py-1 flex-shrink-0">
                     <div ref="svg-logo" class="w-14 h-14 animate__animated animate__swing">
                         <SVGLogo class="fill-primary-500" />
                     </div>
                 </div>
-                <div class="bg-secondary-400 rounded-b-xl h-16 w-full">
-
-                </div>
-                <div class="flex-shrink-0 w-16 h-full"></div>
             </div>
             <div class="w-full h-full">
                 <slot></slot>
@@ -105,7 +101,7 @@ export default {
             this.$router.push('/login')
         },
         handleClickContent(e){
-            if(this.openMenu && !e.target.contains(this.$refs['button-bars'])){
+            if(this.openMenu && !this.$refs['button-bars'].contains(e.target)){
                 this.toggleMenu();
             }
         }

@@ -40,7 +40,7 @@ const routes = [
 	{
 		name: 'Desktop_Usuarios',
 		path: '/desktop/usuarios',
-		component: () => import('@/views/desktop/usuarios.vue')
+		component: () => import('@/views/desktop/Usuarios.vue')
 	},
 
 	/// Mobile Routing
